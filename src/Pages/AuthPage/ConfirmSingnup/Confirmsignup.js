@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { useAuthProvider } from "../../../Context/AuthProvider";
 import {  useHistory } from "react-router-dom";
-import { toast } from "aws-amplify";
+import { toast } from "react-toastify";
 
 
 function Confirmsignup() {
@@ -12,17 +12,21 @@ function Confirmsignup() {
 
     async function confirmUser(e) {
         e.preventDefault();
-        console.log(codeRef.current.value)
         try {
           await confirmSignUp(codeRef.current.value)
           history.push("/");
-        } catch {
-          alert("Failed to connect");
+        } catch(err) {
+          console.log(err)
+          toast.error(err.message)
         }
       }
       async function resend(){
-          await resendConfirmationCode();
+          try{
+            await resendConfirmationCode();
           toast.success("Code has sent!")
+          }catch(err){
+            toast.error(err.message)
+          }
       }
 
   return (

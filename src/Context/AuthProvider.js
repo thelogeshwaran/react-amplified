@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect, createContext } from "react";
 import { Auth } from "aws-amplify";
+import { toast } from "react-toastify";
 
 const AuthContext = createContext();
 
@@ -14,66 +15,61 @@ export function AuthProvider({ children }) {
   async function checkUser() {
     try {
       const user = await Auth.currentAuthenticatedUser();
-      console.log("Come", user);
       user && setCurrentUser(user);
     } catch (err) {
       console.log(err);
     }
   }
 
-  async function resendConfirmationCode() {
-    try {
-        await Auth.resendSignUp(userName);
-        console.log('code resent successfully');
-    } catch (err) {
-        console.log('error resending code: ', err);
-    }
-}
-
-  async function signup(username, email, password) {
-    console.log(username,password,email)
-    try {
-      const { user } = await Auth.signUp({
-        username,
-        password,
-        attributes: {
-          email,
-        },
-      });
-      console.log(user);
-    } catch (error) {
-      console.log("error signing up:", error);
-    }
+  async function signup(username, email, password, number) {
+    await Auth.signUp({
+      username,
+      password,
+      attributes: {
+        email,
+        phone_number: "+91" + number,
+      },
+    });
   }
 
   async function confirmSignUp(code) {
-    try {
-      await Auth.confirmSignUp(userName, code);
-      setUserName("")
-    } catch (error) {
-        console.log('error confirming sign up', error);
-    }
-}
+    await Auth.confirmSignUp(userName, code);
+  }
+
+  async function resendConfirmationCode() {
+      await Auth.resendSignUp(userName);
+  }
 
   async function login(username, password) {
-    try {
-      const user = await Auth.signIn(username, password);
-      setCurrentUser(user);
-    } catch (error) {
-      console.log("error signing in", error);
-    }
+    const user = await Auth.signIn(username, password);
+    setCurrentUser(user);
+    return user;
+  }
+
+  async function confirmLogin(code) {
+    const loggedUser = await Auth.confirmSignIn(currentUser, code, "SMS_MFA");
+    console.log(loggedUser);
+    setCurrentUser(loggedUser);
   }
 
   async function signOut() {
-    try {
       await Auth.signOut();
-    } catch (error) {
-      console.log("error signing out: ", error);
-    }
   }
 
   return (
-    <AuthContext.Provider value={{ currentUser, signup, login, signOut,setCurrentUser, confirmSignUp,setUserName,resendConfirmationCode }}>
+    <AuthContext.Provider
+      value={{
+        currentUser,
+        signup,
+        login,
+        signOut,
+        setCurrentUser,
+        confirmSignUp,
+        setUserName,
+        resendConfirmationCode,
+        confirmLogin,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

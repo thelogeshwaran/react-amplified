@@ -8,8 +8,11 @@ import Signup from "./Pages/AuthPage/Signup/Signup";
 import PrivateRoute from "./Components/PrivateRoute/PrivateRoute";
 import HomePage from "./Pages/HomePage/HomePage";
 import Confirmsignup from "./Pages/AuthPage/ConfirmSingnup/Confirmsignup";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import ConfirmLogin from "./Pages/AuthPage/ConfirmLogin/ConfirmLogin";
+import ForgotPassword from "./Pages/AuthPage/ForgotPassword/ForgotPassword";
+import ConfirmPassword from "./Pages/AuthPage/ConfirPassword/ConfirmPassword";
 
 Amplify.configure(awsExports);
 
@@ -18,10 +21,14 @@ const App = () => {
     <div>
       <ToastContainer/>
       <Switch>
-        <PrivateRoute exact path="/" component={HomePage} />
+        {/* <PrivateRoute exact path="/" component={HomePage} /> */}
+        <Route path="/" exact component={HomePage}/>
         <Route path="/login" component={Login}/>
         <Route path="/signup" component={Signup}/>
-        <Route path="/verify" component={Confirmsignup}/>
+        <Route path="/verifySignup" component={Confirmsignup}/>
+        <Route path="/verifyLogin" component={ConfirmLogin}/>
+        <Route path="/forgotpassword" component={ForgotPassword}/>
+        <Route path="/resetpassword" component={ConfirmPassword}/>
       </Switch>
     </div>
   );

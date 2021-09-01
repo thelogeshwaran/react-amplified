@@ -1,11 +1,13 @@
 import React, { useRef, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useAuthProvider } from "../../../Context/AuthProvider";
+import { toast } from "react-toastify";
 
 function Signup() {
   const emailRef = useRef();
   const passwordRef = useRef();
   const usernameRef = useRef();
+  const phoneRef = useRef();
   const [loading, setLoading] = useState(false);
   const history = useHistory();
 
@@ -20,13 +22,14 @@ function Signup() {
       await signup(
         usernameRef.current.value,
         emailRef.current.value,
-        passwordRef.current.value
+        passwordRef.current.value,
+        phoneRef.current.value
       );
-      history.push("/verify");
+      history.push("/verifySignup");
     } catch (err) {
-      console.log(err);
       setLoading(false);
-      alert("Failed to connect");
+      console.log(err);
+      toast.error(err.message)
     }
   }
 
@@ -46,6 +49,13 @@ function Signup() {
             ref={usernameRef}
             required
             placeholder="Username"
+          ></input>
+          <input
+            className="border-2 h-10 m-5 p-3"
+            type="text"
+            ref={phoneRef}
+            required
+            placeholder="Phone"
           ></input>
           <input
             className="border-2 h-10 m-5 p-3"

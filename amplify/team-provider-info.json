@@ -1,26 +1,26 @@
 {
-    "dev": {
-        "awscloudformation": {
-            "AuthRoleName": "amplify-reactamplified-dev-131227-authRole",
-            "UnauthRoleArn": "arn:aws:iam::651655141843:role/amplify-reactamplified-dev-131227-unauthRole",
-            "AuthRoleArn": "arn:aws:iam::651655141843:role/amplify-reactamplified-dev-131227-authRole",
-            "Region": "ap-southeast-1",
-            "DeploymentBucketName": "amplify-reactamplified-dev-131227-deployment",
-            "UnauthRoleName": "amplify-reactamplified-dev-131227-unauthRole",
-            "StackName": "amplify-reactamplified-dev-131227",
-            "StackId": "arn:aws:cloudformation:ap-southeast-1:651655141843:stack/amplify-reactamplified-dev-131227/571b7f50-070a-11ec-9099-06d5ecbf2b22",
-            "AmplifyAppId": "d3780fswi8q3vx"
-        },
-        "categories": {
-            "auth": {
-                "reactamplified8bc64e69": {}
-            },
-            "hosting": {
-                "amplifyhosting": {
-                    "appId": "d3780fswi8q3vx",
-                    "type": "manual"
-                }
-            }
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-reactamplified-dev-131227-authRole",
+      "UnauthRoleArn": "arn:aws:iam::651655141843:role/amplify-reactamplified-dev-131227-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::651655141843:role/amplify-reactamplified-dev-131227-authRole",
+      "Region": "ap-southeast-1",
+      "DeploymentBucketName": "amplify-reactamplified-dev-131227-deployment",
+      "UnauthRoleName": "amplify-reactamplified-dev-131227-unauthRole",
+      "StackName": "amplify-reactamplified-dev-131227",
+      "StackId": "arn:aws:cloudformation:ap-southeast-1:651655141843:stack/amplify-reactamplified-dev-131227/571b7f50-070a-11ec-9099-06d5ecbf2b22",
+      "AmplifyAppId": "d3780fswi8q3vx"
+    },
+    "categories": {
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d3780fswi8q3vx",
+          "type": "manual"
         }
+      },
+      "auth": {
+        "reactamplified8bf14a148bf14a14": {}
+      }
     }
+  }
 }
