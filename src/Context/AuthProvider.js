@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect, createContext } from "react";
 import { Auth } from "aws-amplify";
-import { toast } from "react-toastify";
 
 const AuthContext = createContext();
 
@@ -37,7 +36,7 @@ export function AuthProvider({ children }) {
   }
 
   async function resendConfirmationCode() {
-      await Auth.resendSignUp(userName);
+    await Auth.resendSignUp(userName);
   }
 
   async function login(username, password) {
@@ -50,12 +49,14 @@ export function AuthProvider({ children }) {
     const loggedUser = await Auth.confirmSignIn(currentUser, code, "SMS_MFA");
     console.log(loggedUser);
     setCurrentUser(loggedUser);
+    localStorage.setItem("user", JSON.stringify(loggedUser));
   }
 
   async function signOut() {
-      await Auth.signOut();
+    await Auth.signOut();
   }
 
+  console.log(currentUser)
   return (
     <AuthContext.Provider
       value={{

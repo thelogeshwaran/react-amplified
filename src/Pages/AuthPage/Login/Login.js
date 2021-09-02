@@ -25,9 +25,9 @@ function Login() {
       ) {
         history.push("/verifyLogin");
       }
-    } catch(error) {
+    } catch (error) {
       setLoading(false);
-      toast.error(error.message)
+      toast.error(error.message);
     }
   }
 

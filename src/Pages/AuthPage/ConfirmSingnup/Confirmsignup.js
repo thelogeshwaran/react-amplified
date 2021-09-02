@@ -1,33 +1,31 @@
 import React, { useRef } from "react";
 import { useAuthProvider } from "../../../Context/AuthProvider";
-import {  useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
-
 
 function Confirmsignup() {
   const codeRef = useRef();
-  const {  confirmSignUp,resendConfirmationCode } = useAuthProvider();
+  const { confirmSignUp, resendConfirmationCode } = useAuthProvider();
   const history = useHistory();
 
-
-    async function confirmUser(e) {
-        e.preventDefault();
-        try {
-          await confirmSignUp(codeRef.current.value)
-          history.push("/");
-        } catch(err) {
-          console.log(err)
-          toast.error(err.message)
-        }
-      }
-      async function resend(){
-          try{
-            await resendConfirmationCode();
-          toast.success("Code has sent!")
-          }catch(err){
-            toast.error(err.message)
-          }
-      }
+  async function confirmUser(e) {
+    e.preventDefault();
+    try {
+      await confirmSignUp(codeRef.current.value);
+      history.push("/");
+    } catch (err) {
+      console.log(err);
+      toast.error(err.message);
+    }
+  }
+  async function resend() {
+    try {
+      await resendConfirmationCode();
+      toast.success("Code has sent!");
+    } catch (err) {
+      toast.error(err.message);
+    }
+  }
 
   return (
     <div className="flex h-screen  justify-center content-center">
@@ -52,7 +50,7 @@ function Confirmsignup() {
           <div className="mx-3 p-3">
             Didn't receive the code?{" "}
             <span
-            onClick={()=> resend()}
+              onClick={() => resend()}
               className="underline text-blue-600 hover:bg-blue-100 cursor:pointer"
             >
               Resend

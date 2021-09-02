@@ -18,11 +18,10 @@ Amplify.configure(awsExports);
 
 const App = () => {
   return (
-    <div>
+    <div className="bg-green-100 h-full">
       <ToastContainer/>
       <Switch>
-        {/* <PrivateRoute exact path="/" component={HomePage} /> */}
-        <Route path="/" exact component={HomePage}/>
+        <PrivateRoute exact path="/" component={HomePage} />
         <Route path="/login" component={Login}/>
         <Route path="/signup" component={Signup}/>
         <Route path="/verifySignup" component={Confirmsignup}/>

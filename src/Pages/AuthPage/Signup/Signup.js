@@ -11,7 +11,7 @@ function Signup() {
   const [loading, setLoading] = useState(false);
   const history = useHistory();
 
-  const { signup,setUserName } = useAuthProvider();
+  const { signup, setUserName } = useAuthProvider();
 
   async function handleSignUp(e) {
     e.preventDefault();
@@ -29,7 +29,7 @@ function Signup() {
     } catch (err) {
       setLoading(false);
       console.log(err);
-      toast.error(err.message)
+      toast.error(err.message);
     }
   }
 

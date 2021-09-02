@@ -20,7 +20,7 @@ function ConfirmPassword() {
     )
       .then((data) => {
         console.log(data);
-        history.push("/");
+        history.push("/login");
         toast.success("Password has changed!");
       })
       .catch((err) => toast.error(err.message));

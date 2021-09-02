@@ -1,26 +1,15 @@
-import { toast } from 'react-toastify';
-import React from 'react';
-import { useHistory } from 'react-router-dom';
-import Todo from '../../Components/Todo/Todo';
-import { useAuthProvider } from '../../Context/AuthProvider';
+import React from "react";
+import Todo from "../../Components/Todo/Todo";
 
 function HomePage() {
-    const { signOut,setCurrentUser } = useAuthProvider();
-    let history = useHistory();
-    function logOut(){
-        signOut();
-        setCurrentUser(null)
-        toast.success("Logged out!")
-        history.push("/login")
-    }
-    return (
-        <div>
-            <button className="bg-green-500 active:bg-green-700 transform motion-safe:hover:scale-110" onClick={()=>logOut()}>
-          SignOut
-        </button>
-            <Todo/>
+  return (
+    <div className='min-h-screen'>
+        <div className="flex text-5xl justify-center p-7 font-bold ">
+            <h1>Todo</h1>
         </div>
-    )
+      <Todo />
+    </div>
+  );
 }
 
-export default HomePage
+export default HomePage;
