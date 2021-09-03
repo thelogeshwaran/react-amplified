@@ -7,8 +7,11 @@ export const getTodo = /* GraphQL */ `
       id
       name
       description
+      status
+      priority
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -23,8 +26,11 @@ export const listTodos = /* GraphQL */ `
         id
         name
         description
+        status
+        priority
         createdAt
         updatedAt
+        owner
       }
       nextToken
     }

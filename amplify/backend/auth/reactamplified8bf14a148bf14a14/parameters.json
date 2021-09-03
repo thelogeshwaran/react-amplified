@@ -1,4 +1,6 @@
 {
+    "identityPoolName": "reactamplified8bf14a148bf14a14_identitypool_d52218de",
+    "allowUnauthenticatedIdentities": false,
     "resourceNameTruncated": "reacta8bf14a14",
     "userPoolName": "reactamplified8bf14a14_userpool_8bf14a14",
     "autoVerifiedAttributes": [
@@ -34,7 +36,7 @@
     "userpoolClientSetAttributes": false,
     "sharedId": "8bf14a14",
     "resourceName": "reactamplified8bf14a148bf14a14",
-    "authSelections": "userPoolOnly",
+    "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
         "Fn::GetAtt": [
             "AuthRole",

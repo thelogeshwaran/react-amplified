@@ -13,6 +13,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import ConfirmLogin from "./Pages/AuthPage/ConfirmLogin/ConfirmLogin";
 import ForgotPassword from "./Pages/AuthPage/ForgotPassword/ForgotPassword";
 import ConfirmPassword from "./Pages/AuthPage/ConfirPassword/ConfirmPassword";
+import FilesPage from "./Pages/FilesPage/FilesPage";
+import NavBar from "./Components/NavBar/NavBar";
 
 Amplify.configure(awsExports);
 
@@ -20,8 +22,10 @@ const App = () => {
   return (
     <div className="bg-green-100 h-full">
       <ToastContainer/>
+      <NavBar/>
       <Switch>
         <PrivateRoute exact path="/" component={HomePage} />
+        <PrivateRoute path="/files" component={FilesPage} />
         <Route path="/login" component={Login}/>
         <Route path="/signup" component={Signup}/>
         <Route path="/verifySignup" component={Confirmsignup}/>

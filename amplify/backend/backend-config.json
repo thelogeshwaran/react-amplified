@@ -6,10 +6,9 @@
       "output": {
         "authConfig": {
           "defaultAuthentication": {
-            "authenticationType": "API_KEY",
-            "apiKeyConfig": {
-              "apiKeyExpirationDays": 30,
-              "description": "demo"
+            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {
+              "userPoolId": "authreactamplified8bf14a148bf14a14"
             }
           },
           "additionalAuthenticationProviders": []
@@ -47,6 +46,12 @@
       "service": "amplifyhosting",
       "providerPlugin": "awscloudformation",
       "type": "manual"
+    }
+  },
+  "storage": {
+    "Todos": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation"
     }
   }
 }

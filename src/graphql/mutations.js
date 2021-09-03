@@ -10,8 +10,11 @@ export const createTodo = /* GraphQL */ `
       id
       name
       description
+      status
+      priority
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -24,8 +27,11 @@ export const updateTodo = /* GraphQL */ `
       id
       name
       description
+      status
+      priority
       createdAt
       updatedAt
+      owner
     }
   }
 `;
@@ -38,8 +44,11 @@ export const deleteTodo = /* GraphQL */ `
       id
       name
       description
+      status
+      priority
       createdAt
       updatedAt
+      owner
     }
   }
 `;

@@ -24,11 +24,11 @@ export function TodoProvider({ children }) {
 
   async function addTodo(todo) {
     try {
-      const newTodo = { ...todo };
+      const newTodo = { ...todo, status : false , priority : "high" };
       const { data } = await API.graphql(
         graphqlOperation(createTodo, { input: newTodo })
       );
-      setTodos([...todos, data.createTodo]);
+      setTodos([data.createTodo, ...todos]);
     } catch (err) {
       console.log("error creating todo:", err);
     }
@@ -64,9 +64,56 @@ export function TodoProvider({ children }) {
       console.log("error deleting todo:", err);
     }
   }
+  
+
+  async function updatePriority(id, value){
+    const updatedValue = {
+      id : id,
+      priority : value
+    }
+    try {
+      const { data } = await API.graphql(
+        graphqlOperation(updateTodo, { input: updatedValue })
+      );
+      const updatedData = todos.map((item) => {
+        if (item.id === id) {
+          item.priority = value;
+          return item;
+        } else {
+          return item;
+        }
+      });
+      setTodos(updatedData);
+    } catch (err) {
+      console.log("error deleting todo:", err);
+    }
+  }
+
+  async function updateProgress(id, value){
+    const updatedValue = {
+      id : id,
+      status : value
+    }
+    try {
+      const { data } = await API.graphql(
+        graphqlOperation(updateTodo, { input: updatedValue })
+      );
+      const updatedData = todos.map((item) => {
+        if (item.id === id) {
+          item.status = value;
+          return item;
+        } else {
+          return item;
+        }
+      });
+      setTodos(updatedData);
+    } catch (err) {
+      console.log("error deleting todo:", err);
+    }
+  }
   return (
     <TodoContext.Provider
-      value={{ todos, setTodos, addTodo, deleteItem, updateItem }}
+      value={{ todos, setTodos, addTodo, deleteItem, updateItem, updatePriority,updateProgress }}
     >
       {children}
     </TodoContext.Provider>
