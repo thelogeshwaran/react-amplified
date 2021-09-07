@@ -20,6 +20,12 @@
       },
       "auth": {
         "reactamplified8bf14a148bf14a14": {}
+      },
+      "function": {
+        "fileupload": {
+          "deploymentBucketName": "amplify-reactamplified-dev-131227-deployment",
+          "s3Key": "amplify-builds/fileupload-715779304934514e4550-build.zip"
+        }
       }
     }
   }

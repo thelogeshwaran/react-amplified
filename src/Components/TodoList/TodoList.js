@@ -1,8 +1,8 @@
+import { observer } from "mobx-react-lite";
 import React from "react";
 import TodoItem from "../TodoItem/TodoItem";
 
 function TodoList({ todos }) {
-    
   return (
     <div className="flex flex-col w-3/4">
       {todos.map((todo) => (
@@ -12,4 +12,4 @@ function TodoList({ todos }) {
   );
 }
 
-export default TodoList;
+export default observer(TodoList);

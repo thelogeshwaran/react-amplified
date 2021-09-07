@@ -6,3 +6,7 @@ type Todo @model
   status : Boolean
   priority : String
 }
+
+type Query {
+  upload(msg: String): String @function(name: "fileupload-${env}")
+}

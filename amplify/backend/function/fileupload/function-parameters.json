@@ -1,0 +1,33 @@
+{
+  "lambdaLayers": [],
+  "permissions": {
+    "api": {
+      "reactamplified": [
+        "Query",
+        "Mutation"
+      ]
+    },
+    "auth": {
+      "reactamplified8bf14a148bf14a14": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    },
+    "storage": {
+      "Todos": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ],
+      "Todo:@model(appsync)": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    }
+  }
+}

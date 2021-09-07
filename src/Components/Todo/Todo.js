@@ -2,14 +2,15 @@ import React from "react";
 import TodoList from "../TodoList/TodoList";
 import TodoInputForm from "../TodoInputForm/TodoInputForm";
 import { useTodoProvider } from "../../Context/TodoProvider";
+import { observer } from "mobx-react-lite";
 
 const initialState = { name: "", description: "" };
 
 
 function Todo() {
-  const { todos,addTodo } = useTodoProvider();
-  const inprogressTodos = todos.filter( item => item.status === false)
-  const completedTodos = todos.filter( item => item.status)
+  const { addTodo, rootTree } = useTodoProvider();
+  const inprogressTodos = rootTree.todos.filter( item => item.status === false)
+  const completedTodos = rootTree.todos.filter( item => item.status)
 
   return (
     <div className="flex flex-col items-center w-2/4 m-auto">
@@ -26,5 +27,5 @@ function Todo() {
   );
 }
 
-export default Todo;
+export default observer(Todo);
 

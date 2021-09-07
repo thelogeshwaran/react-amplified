@@ -15,6 +15,8 @@ import ForgotPassword from "./Pages/AuthPage/ForgotPassword/ForgotPassword";
 import ConfirmPassword from "./Pages/AuthPage/ConfirPassword/ConfirmPassword";
 import FilesPage from "./Pages/FilesPage/FilesPage";
 import NavBar from "./Components/NavBar/NavBar";
+import { observer } from "mobx-react-lite";
+
 
 Amplify.configure(awsExports);
 
@@ -37,4 +39,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default observer(App);

@@ -1,3 +1,4 @@
+import { observer } from "mobx-react-lite";
 import React,{ useState } from "react";
 import Button from "../Button/Button";
 
@@ -33,4 +34,4 @@ function TodoInputForm({ initialState,onSubmitTodo, buttonValue}) {
   );
 }
 
-export default TodoInputForm;
+export default  observer(TodoInputForm);

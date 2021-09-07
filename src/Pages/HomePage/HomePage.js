@@ -1,11 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import Todo from "../../Components/Todo/Todo";
 
-
 function HomePage() {
-  
   return (
-    <div className='min-h-screen'>
+    <div className="min-h-screen">
       <Todo />
     </div>
   );
