@@ -49,8 +49,32 @@ export const TodoModel = types
         console.log(err);
       }
     }),
+    updateItem(item){
+      const updatedList = self.todos.map(todo => {
+        if(todo.id === item.id){
+          return item
+        }else{
+          return todo
+        }
+      })
+      self.setTodos(updatedList)
+    },
+    deleteItem(item){
+      const removedList = self.todos.filter(todo => todo.id !== item.id)
+      self.setTodos(removedList)
+    },
     remove(item) {
         destroy(item);
       }
+  }))
+  .views( self =>({
+    completedList(){
+      const completed = self.todos.filter(item => item.status === true);
+      return completed;
+    },
+    inProgressList(){
+      const inProgress = self.todos.filter(item => item.status === false);
+      return inProgress;
+    }
   }))
   

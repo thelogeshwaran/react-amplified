@@ -1,10 +1,9 @@
-type Todo @model 
-@auth( rules: [{ allow : owner }]){
+type Todo @model @auth(rules: [{ allow: owner }]) {
   id: ID!
   name: String!
   description: String
-  status : Boolean
-  priority : String
+  status: Boolean
+  priority: String
 }
 
 type Query {

@@ -19,7 +19,6 @@ function TodoItem({ todo }) {
     try {
       await API.graphql(graphqlOperation(updateTodo, { input: details }));
       setEdit(false);
-      todo.updateTodo(details);
     } catch (err) {
       console.log(err);
     }
@@ -32,7 +31,6 @@ function TodoItem({ todo }) {
     };
     try {
       await API.graphql(graphqlOperation(updateTodo, { input: updatedValue }));
-      todo.updatePriority(value);
     } catch (err) {
       console.log(err);
     }
@@ -42,7 +40,6 @@ function TodoItem({ todo }) {
     try {
       const deleteItem = { id };
       await API.graphql(graphqlOperation(deleteTodo, { input: deleteItem }));
-      todo.removeTodo();
     } catch (err) {
       console.log("error deleting todo:", err);
     }
@@ -55,7 +52,6 @@ function TodoItem({ todo }) {
     };
     try {
       await API.graphql(graphqlOperation(updateTodo, { input: updatedValue }));
-      todo.updateStatus(value);
     } catch (err) {
       console.log("error deleting todo:", err);
     }

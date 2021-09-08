@@ -13,9 +13,11 @@ function FilesPage() {
     Storage.list("")
       .then((result) => {
         setAllFiles(result);
+        console.log(result)
       })
       .catch((err) => console.log(err));
   }, []);
+
   const handleFileInput = (e) => {
     const file = e.target.files[0];
     setFile(file);

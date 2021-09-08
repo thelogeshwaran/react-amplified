@@ -56,7 +56,6 @@ export function AuthProvider({ children }) {
     await Auth.signOut();
   }
 
-  console.log(currentUser)
   return (
     <AuthContext.Provider
       value={{
