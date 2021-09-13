@@ -114,18 +114,20 @@ export const TodoStore = types
     },
     updateSharedItem(item, user) {
       let itemIncluded = false;
-      const updatedList = self.sharedTodos.map((todo) => {
-        if (todo.id === item.id) {
-          itemIncluded = true;
-          return item;
-        } else {
-          return todo;
+      if (item.admins.includes(user.username)){
+        const updatedList = self.sharedTodos.map((todo) => {
+          if (todo.id === item.id) {
+            itemIncluded = true;
+            return item;
+          } else {
+            return todo;
+          }
+        });
+        if (itemIncluded) {
+          self.setSharedTodos(updatedList);
+        } else  {
+          self.sharedTodos.push(item);
         }
-      });
-      if (itemIncluded) {
-        self.setSharedTodos(updatedList);
-      } else if (item.admins.includes(user.username)) {
-        self.sharedTodos.push(item);
       }
     },
     deleteItem(item) {
