@@ -12,9 +12,10 @@ export const createTodo = /* GraphQL */ `
       description
       status
       priority
+      owner
+      admins
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -29,9 +30,10 @@ export const updateTodo = /* GraphQL */ `
       description
       status
       priority
+      owner
+      admins
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -46,9 +48,10 @@ export const deleteTodo = /* GraphQL */ `
       description
       status
       priority
+      owner
+      admins
       createdAt
       updatedAt
-      owner
     }
   }
 `;

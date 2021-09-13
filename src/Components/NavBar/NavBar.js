@@ -17,6 +17,7 @@ function NavBar() {
         <div>
         <Link to="/"><Button content="Todos"/></Link>
         <Link to="/files"><Button content="Files"/></Link>
+        <Link to="/shared"><Button content="Shared"/></Link>
         {/* <Button content="logout" onClick={logout}/> */}
         </div>
         </div>

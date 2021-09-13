@@ -5,10 +5,14 @@ import Dropdown from "react-dropdown";
 import { observer } from "mobx-react-lite";
 import { API, graphqlOperation } from "aws-amplify";
 import { deleteTodo, updateTodo } from "../../graphql/mutations";
+import { useTodoProvider } from "../../Context/TodoProvider";
+import { useLocation } from 'react-router-dom';
 
 function TodoItem({ todo }) {
   const [edit, setEdit] = useState(false);
   const options = ["low", "medium", "high"];
+  const { rootTree } = useTodoProvider();
+  const location = useLocation();
 
   async function update(value) {
     const details = {
@@ -34,6 +38,23 @@ function TodoItem({ todo }) {
     } catch (err) {
       console.log(err);
     }
+  }
+  async function updateAdmins(id, value,todo) {
+    let result = todo.admins.includes(value);
+    console.log(value)
+   if(!result){
+    const updatedValue = {
+      id: id,
+      admins:  [...todo.admins,value],
+    };
+    console.log(updatedValue)
+    try {
+      await API.graphql(graphqlOperation(updateTodo, { input: updatedValue }));
+    } catch (err) {
+      console.log(err);
+    }
+   }
+    
   }
 
   async function deleteItem(id) {
@@ -87,6 +108,16 @@ function TodoItem({ todo }) {
               />
               <Button content="Edit" onClick={() => setEdit(true)} />
               <Button content="Delete" onClick={() => deleteItem(todo.id)} />
+              {
+                location.pathname !== "/shared" &&
+                <Dropdown
+                className="w-auto bg-white p-2 m-2 text-black"
+                options={rootTree.users? [...rootTree.users] :[]}
+                onChange={(e) => updateAdmins(todo.id, e.value,todo)}
+                value="Share"
+                placeholder="Select an option"
+              />
+              }
             </div>
           </div>
           <p>{todo.description}</p>

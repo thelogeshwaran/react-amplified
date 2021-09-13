@@ -16,6 +16,7 @@ import ConfirmPassword from "./Pages/AuthPage/ConfirPassword/ConfirmPassword";
 import FilesPage from "./Pages/FilesPage/FilesPage";
 import NavBar from "./Components/NavBar/NavBar";
 import { observer } from "mobx-react-lite";
+import SharedPage from "./Pages/SharedPage/SharedPage";
 
 
 Amplify.configure(awsExports);
@@ -28,6 +29,7 @@ const App = () => {
       <Switch>
         <PrivateRoute exact path="/" component={HomePage} />
         <PrivateRoute path="/files" component={FilesPage} />
+        <PrivateRoute path="/shared" component={SharedPage} />
         <Route path="/login" component={Login}/>
         <Route path="/signup" component={Signup}/>
         <Route path="/verifySignup" component={Confirmsignup}/>

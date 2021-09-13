@@ -14,9 +14,10 @@ export const getTodo = /* GraphQL */ `
       description
       status
       priority
+      owner
+      admins
       createdAt
       updatedAt
-      owner
     }
   }
 `;
@@ -33,9 +34,10 @@ export const listTodos = /* GraphQL */ `
         description
         status
         priority
+        owner
+        admins
         createdAt
         updatedAt
-        owner
       }
       nextToken
     }

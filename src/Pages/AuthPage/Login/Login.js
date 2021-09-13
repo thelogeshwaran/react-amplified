@@ -15,16 +15,18 @@ function Login() {
 
     try {
       setLoading(true);
-      const response = await login(
+      await login(
         userNameRef.current.value,
         passwordRef.current.value
       );
-      if (
-        response.challengeName === "SMS_MFA" ||
-        response.challengeName === "SOFTWARE_TOKEN_MFA"
-      ) {
-        history.push("/verifyLogin");
-      }
+      // if (
+      //   response.challengeName === "SMS_MFA" ||
+      //   response.challengeName === "SOFTWARE_TOKEN_MFA"
+      // ) {
+      //   history.push("/verifyLogin");
+      // }
+      toast.success("Logged In!");
+      history.push("/");
     } catch (error) {
       setLoading(false);
       toast.error(error.message);

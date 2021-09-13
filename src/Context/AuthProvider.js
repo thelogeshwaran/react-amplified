@@ -11,6 +11,8 @@ export function AuthProvider({ children }) {
     checkUser();
   }, []);
 
+  
+  
   async function checkUser() {
     try {
       const user = await Auth.currentAuthenticatedUser();
@@ -42,6 +44,7 @@ export function AuthProvider({ children }) {
   async function login(username, password) {
     const user = await Auth.signIn(username, password);
     setCurrentUser(user);
+    localStorage.setItem("user", JSON.stringify(user));
     return user;
   }
 
@@ -67,7 +70,7 @@ export function AuthProvider({ children }) {
         confirmSignUp,
         setUserName,
         resendConfirmationCode,
-        confirmLogin,
+        confirmLogin
       }}
     >
       {children}

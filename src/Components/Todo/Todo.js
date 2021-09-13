@@ -9,11 +9,11 @@ const initialState = { name: "", description: "" };
 
 function Todo() {
   const { addTodo, rootTree } = useTodoProvider();
-  const inprogressTodos = rootTree.inProgressList()
+  const inprogressTodos = rootTree.inProgressList();
   const completedTodos = rootTree.completedList();
-
+  console.log(inprogressTodos)
   return (
-    <div className="flex flex-col items-center w-2/4 m-auto">
+    <div className="flex flex-col items-center w-3/4 m-auto">
         <TodoInputForm onSubmitTodo={addTodo} initialState={initialState} buttonValue="Create"/>
         <div>
           <h1 className="text-4xl m-3">Inprogress</h1>
