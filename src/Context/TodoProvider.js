@@ -19,11 +19,10 @@ export function TodoProvider({ children }) {
   let subscriptionUpdate;
 
   useEffect(() => {
-   
-    if(currentUser){
+    if (currentUser) {
       rootTree.fetchTodos(currentUser.username);
       rootTree.fetchUsers(currentUser);
-      rootTree.fetchSharedTodos(currentUser.username)
+      rootTree.fetchSharedTodos(currentUser.username);
     }
   }, [currentUser, rootTree]);
 
@@ -44,26 +43,27 @@ export function TodoProvider({ children }) {
     subscription = API.graphql(
       graphqlOperation(onCreateTodo, { owner: currentUser.username })
     ).subscribe({
-      next: ({ provider, value }) =>{
-        rootTree.addNewTodo(value.data.onCreateTodo)
+      next: ({ provider, value }) => {
+        rootTree.addNewTodo(value.data.onCreateTodo);
       },
       error: (error) => console.log(error),
     });
     subscriptionUpdate = API.graphql(
       graphqlOperation(onUpdateTodo, { owner: currentUser.username })
     ).subscribe({
-      next: ({ provider, value }) =>{
-        rootTree.updateItem(value.data.onUpdateTodo)
-        value.data.onUpdateTodo.admins && rootTree.updateSharedItem(value.data.onUpdateTodo, currentUser);
-      } ,
+      next: ({ provider, value }) => {
+        rootTree.updateItem(value.data.onUpdateTodo);
+        value.data.onUpdateTodo.admins &&
+          rootTree.updateSharedItem(value.data.onUpdateTodo, currentUser);
+      },
       error: (error) => console.log(error),
     });
-     subscriptionDelete = API.graphql(
+    subscriptionDelete = API.graphql(
       graphqlOperation(onDeleteTodo, { owner: currentUser.username })
     ).subscribe({
-      next: ({ provider, value }) =>{
-      rootTree.deleteItem(value.data.onDeleteTodo);
-      rootTree.deleteSharedItem(value.data.onDeleteTodo)
+      next: ({ provider, value }) => {
+        rootTree.deleteItem(value.data.onDeleteTodo);
+        rootTree.deleteSharedItem(value.data.onDeleteTodo);
       },
       error: (error) => console.log(error),
     });
@@ -71,7 +71,13 @@ export function TodoProvider({ children }) {
 
   async function addTodo(todo) {
     try {
-      const newTodo = { ...todo, status: false, priority: "high", owner:currentUser.username, admins:[] };
+      const newTodo = {
+        ...todo,
+        status: false,
+        priority: "high",
+        owner: currentUser.username,
+        admins: [],
+      };
       await API.graphql(graphqlOperation(createTodo, { input: newTodo }));
     } catch (err) {
       console.log("error creating todo:", err);
@@ -82,7 +88,7 @@ export function TodoProvider({ children }) {
     <TodoContext.Provider
       value={{
         rootTree,
-        addTodo
+        addTodo,
       }}
     >
       {children}
