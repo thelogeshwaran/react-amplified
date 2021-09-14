@@ -5,6 +5,16 @@ import {
   CognitoIdentityProviderClient,
   ListUsersCommand,
 } from "@aws-sdk/client-cognito-identity-provider";
+import { Credentials } from "@aws-amplify/core";
+
+
+const _get = (name) =>
+  Credentials.get().then(function (credentials) {
+    if (!credentials) return false;
+    var cred = Credentials.shear(credentials);
+    console.log(cred)
+    return cred[name];
+  });
 
 export const TodoModel = types
   .model("TodoModel", {
@@ -81,8 +91,8 @@ export const TodoStore = types
       const client = new CognitoIdentityProviderClient({
         region: "ap-southeast-1",
         credentials: {
-          accessKeyId: process.env.REACT_APP_ACCESS_KEY,
-          secretAccessKey: process.env.REACT_APP_SECRET_KEY,
+          accessKeyId: _get("accessKeyId"),
+          secretAccessKey: _get("secretAccessKey"),
         },
       });
       const command = new ListUsersCommand({
