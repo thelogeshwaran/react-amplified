@@ -44,7 +44,9 @@ export function TodoProvider({ children }) {
       graphqlOperation(onCreateTodo, { owner: currentUser.username })
     ).subscribe({
       next: ({ provider, value }) => {
-        rootTree.addNewTodo(value.data.onCreateTodo);
+        if(currentUser.username === value.data.onCreateTodo.owner){
+          rootTree.addNewTodo(value.data.onCreateTodo);
+        }
       },
       error: (error) => console.log(error),
     });
