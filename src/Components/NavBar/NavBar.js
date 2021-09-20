@@ -5,6 +5,7 @@ import Button from '../Button/Button';
 import { useHistory } from 'react-router';
 import { DataStore } from "@aws-amplify/datastore";
 
+
 function NavBar() {
     const { signOut } = useAuthProvider();
     const history = useHistory();
