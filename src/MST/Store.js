@@ -1,22 +1,22 @@
 import { destroy, flow, getParent, types } from "mobx-state-tree";
-import { API, graphqlOperation } from "aws-amplify";
-import { listTodos } from "../graphql/queries";
+import { DataStore, Predicates } from "@aws-amplify/datastore"
+import { listTodos, syncTodos } from "../graphql/queries";
 import {
   CognitoIdentityProviderClient,
   ListUsersCommand,
 } from "@aws-sdk/client-cognito-identity-provider";
+import { Todo } from "../models";
+
 
 export const TodoModel = types
   .model("TodoModel", {
-    createdAt: types.string,
     description: types.string,
     id: types.string,
     name: types.string,
     owner: types.string,
     priority: types.string,
     status: types.boolean,
-    updatedAt: types.string,
-    admins: types.array(types.string),
+    editors : types.array(types.string),
   })
   .actions((self) => ({
     updatePriority(priority) {
@@ -55,24 +55,16 @@ export const TodoStore = types
     },
     fetchTodos: flow(function* (name) {
       try {
-        const todoData = yield API.graphql(
-          graphqlOperation(listTodos, { filter: { owner: { contains: name } } })
-        );
-        const todos = todoData.data.listTodos.items;
-        self.setTodos(todos);
-      } catch (err) {
-        console.log(err);
-      }
-    }),
-    fetchSharedTodos: flow(function* (name) {
-      try {
-        const todoData = yield API.graphql(
-          graphqlOperation(listTodos, {
-            filter: { admins: { contains: name } },
-          })
-        );
-        const todos = todoData.data.listTodos.items;
-        self.setSharedTodos(todos);
+        // const todoDatas = yield API.graphql(
+        //   graphqlOperation(listTodos)
+        // );
+        // console.log(todoDatas)
+        // const todos = todoData.data.listTodos.items;
+        const todoData = yield DataStore.query(Todo,Predicates.ALL)
+        console.log(todoData)
+        const data = todoData.map( item => ({...item}))
+        console.log(data)
+        self.setTodos( data);
       } catch (err) {
         console.log(err);
       }
@@ -103,14 +95,21 @@ export const TodoStore = types
     }),
 
     updateItem(item) {
+      let itemIncludedList = false;
       const updatedList = self.todos.map((todo) => {
         if (todo.id === item.id) {
+          itemIncludedList = true;
           return item;
         } else {
           return todo;
         }
       });
-      self.setTodos(updatedList);
+      if (itemIncludedList) {
+        self.setTodos(updatedList);
+      } else  {
+        self.sharedTodos.push(item);
+      }
+      
     },
     updateSharedItem(item, user) {
       let itemIncluded = false;
@@ -126,7 +125,7 @@ export const TodoStore = types
         if (itemIncluded) {
           self.setSharedTodos(updatedList);
         } else  {
-          self.sharedTodos.push(item);
+          self.addNewTodo(item);
         }
       }
     },

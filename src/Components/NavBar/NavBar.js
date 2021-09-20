@@ -2,7 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { useAuthProvider } from '../../Context/AuthProvider'
 import Button from '../Button/Button';
-import { useHistory } from "react-router-dom";
+import { useHistory } from 'react-router';
+import { DataStore } from "@aws-amplify/datastore";
 
 
 function NavBar() {
@@ -11,7 +12,8 @@ function NavBar() {
     async function logout(){
         await signOut();
         localStorage.removeItem("user");
-        history.push("/login");
+        DataStore.clear();
+        history.push("/login")
     }
     return (
         <div className="flex justify-around items-center">

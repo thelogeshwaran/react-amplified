@@ -13,7 +13,10 @@ export const createTodo = /* GraphQL */ `
       status
       priority
       owner
-      admins
+      editors
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -31,7 +34,10 @@ export const updateTodo = /* GraphQL */ `
       status
       priority
       owner
-      admins
+      editors
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -49,7 +55,10 @@ export const deleteTodo = /* GraphQL */ `
       status
       priority
       owner
-      admins
+      editors
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
