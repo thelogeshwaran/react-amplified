@@ -1,7 +1,5 @@
 /* src/App.js */
 import React from "react";
-import Amplify from "aws-amplify";
-import awsExports from "./aws-exports";
 import { Switch,Route } from "react-router-dom";
 import Login from "./Pages/AuthPage/Login/Login";
 import Signup from "./Pages/AuthPage/Signup/Signup";
@@ -17,9 +15,11 @@ import FilesPage from "./Pages/FilesPage/FilesPage";
 import NavBar from "./Components/NavBar/NavBar";
 import { observer } from "mobx-react-lite";
 import SharedPage from "./Pages/SharedPage/SharedPage";
+import config from "./aws-exports";
+import Amplify from "@aws-amplify/core";
 
+Amplify.configure(config);
 
-Amplify.configure(awsExports);
 
 const App = () => {
   return (

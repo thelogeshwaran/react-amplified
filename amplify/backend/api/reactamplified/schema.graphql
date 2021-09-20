@@ -1,11 +1,14 @@
-type Todo @model{
+type Todo @model
+@auth(rules: [
+    { allow: owner }
+  ]){
   id: ID!
   name: String!
   description: String
   status: Boolean
   priority: String
   owner : String
-  admins : [String]
+  editors : [String]
 }
 
 type Query {

@@ -6,6 +6,38 @@ export const upload = /* GraphQL */ `
     upload(msg: $msg)
   }
 `;
+export const syncTodos = /* GraphQL */ `
+  query SyncTodos(
+    $filter: ModelTodoFilterInput
+    $limit: Int
+    $nextToken: String
+    $lastSync: AWSTimestamp
+  ) {
+    syncTodos(
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      lastSync: $lastSync
+    ) {
+      items {
+        id
+        name
+        description
+        status
+        priority
+        owner
+        editors
+        _version
+        _deleted
+        _lastChangedAt
+        createdAt
+        updatedAt
+      }
+      nextToken
+      startedAt
+    }
+  }
+`;
 export const getTodo = /* GraphQL */ `
   query GetTodo($id: ID!) {
     getTodo(id: $id) {
@@ -15,7 +47,10 @@ export const getTodo = /* GraphQL */ `
       status
       priority
       owner
-      admins
+      editors
+      _version
+      _deleted
+      _lastChangedAt
       createdAt
       updatedAt
     }
@@ -35,11 +70,15 @@ export const listTodos = /* GraphQL */ `
         status
         priority
         owner
-        admins
+        editors
+        _version
+        _deleted
+        _lastChangedAt
         createdAt
         updatedAt
       }
       nextToken
+      startedAt
     }
   }
 `;

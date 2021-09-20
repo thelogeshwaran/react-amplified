@@ -8,6 +8,8 @@ import { deleteTodo, updateTodo } from "../../graphql/mutations";
 import { useTodoProvider } from "../../Context/TodoProvider";
 import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
+import { Todo } from "../../models";
+import { DataStore, Predicates } from "@aws-amplify/datastore"
 
 function TodoItem({ todo }) {
   const [edit, setEdit] = useState(false);
@@ -22,7 +24,14 @@ function TodoItem({ todo }) {
       description: value.description,
     };
     try {
-      await API.graphql(graphqlOperation(updateTodo, { input: details }));
+      // await API.graphql(graphqlOperation(updateTodo, { input: details }));
+      const originalTodo = await DataStore.query(Todo, todo.id);
+      await DataStore.save(
+        Todo.copyOf(originalTodo, (updated) => {
+          updated.name = value.name;
+          updated.description = value.description;
+        })
+      );
       setEdit(false);
     } catch (err) {
       console.log(err);
@@ -35,22 +44,28 @@ function TodoItem({ todo }) {
       priority: value,
     };
     try {
-      await API.graphql(graphqlOperation(updateTodo, { input: updatedValue }));
+      // await API.graphql(graphqlOperation(updateTodo, { input: updatedValue }));
+      const originalPriority = await DataStore.query(Todo, todo.id);
+      await DataStore.save(
+        Todo.copyOf(originalPriority, (updated) => {
+          updated.priority = value;
+        })
+      );
     } catch (err) {
       console.log(err);
     }
   }
   async function updateAdmins(id, value, todo) {
-    let result = todo.admins.includes(value);
+    let result = todo.editors.includes(value);
     if (!result) {
       const updatedValue = {
         id: id,
-        admins: [...todo.admins, value],
+        editors: [...todo.editors, value],
       };
       try {
-        await API.graphql(
-          graphqlOperation(updateTodo, { input: updatedValue })
-        );
+        // await API.graphql(
+        //   graphqlOperation(updateTodo, { input: updatedValue })
+        // );
         toast.success(`Successfully shared with ${value}!`);
       } catch (err) {
         console.log(err);
@@ -63,7 +78,10 @@ function TodoItem({ todo }) {
   async function deleteItem(id) {
     try {
       const deleteItem = { id };
-      await API.graphql(graphqlOperation(deleteTodo, { input: deleteItem }));
+      // await API.graphql(graphqlOperation(deleteTodo, { input: deleteItem }));
+      const deleted = await DataStore.query(Todo, todo.id);
+      DataStore.delete(deleted);
+      todo.removeTodo();
     } catch (err) {
       console.log("error deleting todo:", err);
     }
@@ -75,7 +93,14 @@ function TodoItem({ todo }) {
       status: value,
     };
     try {
-      await API.graphql(graphqlOperation(updateTodo, { input: updatedValue }));
+      // await API.graphql(graphqlOperation(updateTodo, { input: updatedValue }));
+      const originalProgress = await DataStore.query(Todo, todo.id);
+      await DataStore.save(
+        Todo.copyOf(originalProgress, (updated) => {
+          updated.status = value;
+        })
+      );
+      todo.updateStatus(value);
     } catch (err) {
       console.log("error deleting todo:", err);
     }
